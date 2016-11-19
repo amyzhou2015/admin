@@ -1,33 +1,5 @@
 # admin
 
 admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
-admin
+mine
 
