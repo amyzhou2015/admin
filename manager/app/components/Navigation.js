@@ -1,12 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import cookie from 'react-cookie';
 import $ from 'jquery';
 import "../scss/global.scss";
-import {Menu, Icon, Switch, Row, Col} from 'antd';
+import {Menu, Icon, Row, Col} from 'antd';
 import {Link} from 'react-router';
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 let _menu = [],
   menuData = [];
 
