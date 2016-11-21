@@ -18,14 +18,10 @@ module.exports = {
     loaders: [
       {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-      {
-        test: /\.less$/,
-        loader: 'style!css!less'
-      },
-      {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
+      {test: /\.css$/,loader: 'style!css'},
+      {test: /\.less$/, loader: 'style!css!less'},
+      { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" },
+      {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react']
         }

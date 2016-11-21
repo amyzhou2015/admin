@@ -3,16 +3,19 @@
  */
 
 import React from 'react';
-
+import cookie from 'react-cookie';
 export default class ProductBox extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      userName:cookie.load('userName')
+    }
   }
 
   render() {
     return (
       <div>
-        Hello World
+        hello,{this.state.userName}
       </div>
     );
   }

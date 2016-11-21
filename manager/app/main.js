@@ -7,32 +7,20 @@ import ReactDOM from 'react-dom';
 import {Router, Route, Link, IndexRoute, browserHistory} from 'react-router';
 import Navigation from './components/Navigation';
 import ProductBox from './components/ProductBox';
+import NotFound from './components/404';
+import modifyPwd from './components/sys/user/modifyPwd';
+import login from './components/account/login';
+import { isLoggedIn,otherEnterHookHere } from './components/account/authentication.js';
 import "antd/dist/antd.less";
 
-const controlPanel = React.createClass({
-    render() {
-        return <h3> controlPanel </h3>
-    }
-})
 
-class About extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return <h3> About </h3>
-    }
-}
-
-
-ReactDOM.render(
-    <Router history={browserHistory}>
-        <Route path="/" component={Navigation}>
-            <IndexRoute component={ProductBox}/>
-            <Route path="modifyPassword" params={{"menu": "sub1-1"}} component={About}/>
-            <Route path="controlPanel" params={{"menu": "sub1"}} component={controlPanel}/>
-            <Route path="*" params={{"menu": "sub1"}} component={ProductBox}/>
-        </Route>
-    </Router>, document.getElementById('content'));
+ReactDOM.render(<Router history={browserHistory}>
+    <Route path="/login" component={login} onEnter={otherEnterHookHere} />
+    <Route path="/" component={Navigation} onEnter={isLoggedIn}>
+      <IndexRoute component={ProductBox}/>
+      <Route path="sys/user/modifyPwd" component={modifyPwd}/>
+      <Route path="*" component={NotFound}/>
+    </Route>
+  </Router>
+  , document.getElementById('content'));
 
