@@ -19,6 +19,7 @@
     "jquery": "^3.1.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "node-sass": "^3.13.0",
     "react": "^15.3.2",
     "react-ajax": "^0.1.1",
     "react-cookie": "^0.4.8",
