@@ -86,7 +86,7 @@ export default class Navigation extends React.Component {
 
     _menu[tIndex].subMenu = subMenu;
 
-    let _length = Object.keys(subMenu).length
+    let _length = Object.keys(subMenu).length;
     for (let i = 0; i < _length; i++) {
       this._loadMenu2(subMenu[i].id, tIndex, i);
     }
@@ -123,16 +123,16 @@ export default class Navigation extends React.Component {
   }
 
   render() {
-    let menu = this.state.menuData.map((i, t) => {
+    let menu = this.state.menuData.map((i) => {
       return (
         <SubMenu key={i.id} title={i.name}>
           {
             i.subMenu &&
-            i.subMenu.map((x, y) => {
+            i.subMenu.map((x) => {
               if (x.subMenu && x.subMenu.length > 0) {
                 return <SubMenu key={x.id} title={x.name}>
                   {
-                    x.subMenu.map((j, k) => {
+                    x.subMenu.map((j) => {
                       if (j.href.indexOf('http') != -1) {
                         return <Menu.Item key={j.id}><a
                           href={j.href} target="_blank">{j.name}</a></Menu.Item>
