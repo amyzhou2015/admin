@@ -17,7 +17,10 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
-      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+      {
+        test: /\.(jpe?g|gif|png)$/,
+        loader: 'file-loader?emitFile=false&name=[path][name].[ext]'
+      },
       {test: /\.css$/,loader: 'style!css'},
       {test: /\.less$/, loader: 'style!css!less'},
       { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" },
