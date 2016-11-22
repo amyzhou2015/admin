@@ -24,6 +24,7 @@
 .modifyPwd{
   margin-top: 100px;
 }
+
 .login-box{
   width: 100%;
   height: 100%;
@@ -47,6 +48,26 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  div.top-menu{
+    width: 100%;
+    height: 50px;
+    background-color: #158DB5;
+    overflow: hidden;
+    .notification-box{
+      font-size: 12px;
+      height: 42px;
+      width: 42px;
+      margin-top: 14px;
+      float: right;
+      margin-right: 20px;
+      .notification{
+        color:#fff;
+        cursor: pointer;
+        font-size: 28px;
+      }
+    }
+  }
+
   .left-menu {
     overflow-x:hidden ;
     overflow-y:auto;
@@ -56,7 +77,8 @@
       overflow: hidden;
       padding: 10px 20px;
       line-height: 30px;
-      background: #f3f3f3;
+      background: #158DB5;
+      color: #ffffff;
       div.user-box{
         float: left;
         cursor: pointer;

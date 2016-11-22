@@ -2,7 +2,7 @@ import React from 'react';
 import cookie from 'react-cookie';
 import $ from 'jquery';
 import "../scss/global.scss";
-import {Menu, Icon, Row, Col,Popconfirm,Dropdown} from 'antd';
+import {Menu, Icon, Row, Col,Popconfirm,Dropdown,Badge} from 'antd';
 import {Link} from 'react-router';
 const SubMenu = Menu.SubMenu;
 let _menu = [],
@@ -116,20 +116,20 @@ export default class Navigation extends React.Component {
     });
   }
 
-  onOpenChange(e){
-    this.props.children.props.location.state=e;
+  onOpenChange(e) {
+    this.props.children.props.location.state = e;
     this.setState({
       defaultOpenKeys: e,
     });
   }
 
-  userMenuClick(e){
-    if(e.key=='null'){
+  userMenuClick(e) {
+    if (e.key == 'null') {
       this.setState({
         selectedKeys: "",
-        defaultOpenKeys:[]
+        defaultOpenKeys: []
       });
-    }else{
+    } else {
       this.setState({
         selectedKeys: e.key,
       });
@@ -162,7 +162,8 @@ export default class Navigation extends React.Component {
                           return <Menu.Item key={j.id}><a href={j.href} target="_blank">{j.name}</a></Menu.Item>
                         } else {
                           return <Menu.Item key={j.id}><Link
-                            to={{ pathname: j.href, state: { idList: i.id+','+x.id+','+j.id } }} data-select={i.id+','+x.id+','+j.id}>{j.name}</Link></Menu.Item>
+                            to={{ pathname: j.href, state: { idList: i.id+','+x.id+','+j.id } }}
+                            data-select={i.id+','+x.id+','+j.id}>{j.name}</Link></Menu.Item>
                         }
                       }
                     })
@@ -190,7 +191,7 @@ export default class Navigation extends React.Component {
         let _length = _keys.length;
         let openKey = _keys[_length - 1];
         selectedKeys = openKey;
-        defaultOpenKeys=_keys;
+        defaultOpenKeys = _keys;
       }
     }
 
@@ -238,6 +239,11 @@ export default class Navigation extends React.Component {
 
           <Col span={20} pull={0} style={styles.control}>
             <div style={styles.main}>
+              <div className="top-menu">
+                <Badge count={5} className="notification-box">
+                  <Icon type="notification" className="notification"/>
+                </Badge>
+              </div>
               <div className="main-content">
                 {this.props.children}
               </div>
