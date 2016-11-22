@@ -22,9 +22,10 @@ const login = Form.create()(React.createClass({
   },
   render() {
     const { getFieldDecorator } = this.props.form;
+    const mt = (document.documentElement.clientHeight-250)/2.4;
     return (
       <div className="login-box">
-        <Form onSubmit={this.handleSubmit} className="login-form">
+        <Form onSubmit={this.handleSubmit} style={{marginTop:mt}} className="login-form">
           <FormItem>
             {getFieldDecorator('userName', {
               rules: [{required: true, message: 'Please input your username!'}],
