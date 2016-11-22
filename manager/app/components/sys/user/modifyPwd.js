@@ -80,7 +80,7 @@ const modifyPwd = Form.create()(React.createClass({
     };
 
     return (
-      <div>
+      <div className="modifyPwd">
         <Spin spinning={this.state.loading} tip="Loading...">
           <Form horizontal onSubmit={this.handleSubmit}>
             <FormItem
