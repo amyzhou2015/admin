@@ -5,31 +5,30 @@
 ::-webkit-scrollbar {
   height: 12px;
   width: 4px;
-  background: #404040;
+  //background: #404040;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #2db7f5;
   -webkit-border-radius: 1ex;
-  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+  //-webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
 }
 
 ::-webkit-scrollbar-corner {
-  background: #000;
+  //background: #000;
 }
 
-.active{
-  background: red;
-}
-.modifyPwd{
-  margin-top: 100px;
+#content{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .login-box{
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: url("~/images/pexels-photo.jpg") no-repeat center top;
+  background: url("../images/pexels-photo.jpg") no-repeat center top;
   background-size: 100%;
   .login-form{
     background-color: rgba(0,0,0,0.1) ;
@@ -51,14 +50,14 @@
   overflow: hidden;
   div.top-menu{
     width: 100%;
-    height: 50px;
-    background-color: #158DB5;
+    height: 70px;
+    background: linear-gradient(154deg,#008fe2 0,#00b29c 100%);
     overflow: hidden;
     .notification-box{
       font-size: 12px;
       height: 42px;
       width: 42px;
-      margin-top: 14px;
+      margin-top: 20px;
       float: right;
       margin-right: 20px;
       .notification{
@@ -69,34 +68,41 @@
     }
   }
 
-  .left-menu {
+  .main-content {
+    padding: 20px 20px 70px 20px;
+    height: 100%;
     overflow-x:hidden ;
     overflow-y:auto;
+  }
+
+  .left-menu {
     .top-menu {
       width: 100%;
-      height: 50px;
+      height: 70px;
       overflow: hidden;
-      padding: 10px 20px;
-      line-height: 30px;
-      background: #158DB5;
+      background: #2FA0D8;
       color: #ffffff;
       div.user-box{
         float: left;
         cursor: pointer;
+        margin-left: 10px;
         .user {
-          font-size: 24px;
+          font-size: 34px;
+          line-height: 70px;
         }
         span.name {
-          font-size: 18px;
+          line-height: 70px;
+          font-size: 20px;
           margin-left: 10px;
         }
       }
       .logout{
         float: right;
-        line-height: 30px;
-        font-size: 24px;
+        line-height: 70px;
+        font-size: 28px;
         cursor: pointer;
         transition:all 0.5s ease-out;
+        margin-right: 10px;
         &:hover{
           transform: rotate(360deg);
         }
@@ -107,8 +113,4 @@
       overflow-y:auto;
     }
   }
-}
-
-.main-content {
-  padding: 20px;
 }
