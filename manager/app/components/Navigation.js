@@ -1,10 +1,11 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import $ from 'jquery';
-import "../scss/global.scss";
 import {Menu, Icon, Row, Col,Popconfirm,Dropdown,Badge} from 'antd';
 import {Link} from 'react-router';
+import Seetings from '../seetings';
 const SubMenu = Menu.SubMenu;
+const ajaxHost = Seetings.seetings.ajaxHost;
 let _menu = [],
   menuData = [];
 
@@ -44,7 +45,7 @@ export default class Navigation extends React.Component {
 
     const that = this;
     $.ajax({
-      url: 'http://localhost:3000/users',
+      url: ajaxHost+'users',
       type: 'GET',
       dataType: "json",
       success: function (data) {
@@ -71,7 +72,7 @@ export default class Navigation extends React.Component {
         }
       },
       error: function (data) {
-        console.log(data);
+        console.error(data);
       }
     });
   }
@@ -123,6 +124,12 @@ export default class Navigation extends React.Component {
     });
   }
 
+  componentWillUpdate(){
+      if(!cookie.load('userName')){
+          window.location.reload();
+      }
+  }
+
   userMenuClick(e) {
     if (e.key == 'null') {
       this.setState({
@@ -147,23 +154,23 @@ export default class Navigation extends React.Component {
     let defaultOpenKeys = this.state.defaultOpenKeys;
     let menu = this.state.menuData.map((i) => {
       return (
-        <SubMenu key={i.id} title={i.name}>
+        <SubMenu key={i.id} title={<span><Icon type="appstore-o" /><span>{i.name}</span></span>}>
           {
             i.subMenu &&
             i.subMenu.map((x) => {
               if (x.subMenu && x.subMenu.length > 0) {
-                return <SubMenu key={x.id} title={x.name}>
+                return <SubMenu key={x.id} title={<span><Icon type="bars" /><span>{x.name}</span></span>}>
                   {
                     x.subMenu.map((j) => {
                       if (!j.href || j.href == '') {
-                        return <Menu.Item key={j.id} disabled={true}>{j.name}</Menu.Item>
+                        return <Menu.Item key={j.id} disabled={true}>{<span><Icon type="pushpin-o" /><span>{j.name}</span></span>}</Menu.Item>
                       } else {
                         if (j.href.indexOf('http') != -1) {
-                          return <Menu.Item key={j.id}><a href={j.href} target="_blank">{j.name}</a></Menu.Item>
+                          return <Menu.Item key={j.id}><a href={j.href} target="_blank">{<span><Icon type="pushpin-o" /><span>{j.name}</span></span>}</a></Menu.Item>
                         } else {
                           return <Menu.Item key={j.id}><Link
                             to={{ pathname: j.href, state: { idList: i.id+','+x.id+','+j.id } }}
-                            data-select={i.id+','+x.id+','+j.id}>{j.name}</Link></Menu.Item>
+                            data-select={i.id+','+x.id+','+j.id}>{<span><Icon type="pushpin-o" /><span>{j.name}</span></span>}</Link></Menu.Item>
                         }
                       }
                     })
@@ -229,7 +236,7 @@ export default class Navigation extends React.Component {
                   selectedKeys={[selectedKeys]}
                   openKeys={defaultOpenKeys}
                   mode="inline"
-                  theme="dark"
+                  theme="light"
                   className="menu"
                   style={styles.yScroll}
             >
@@ -238,15 +245,13 @@ export default class Navigation extends React.Component {
           </Col>
 
           <Col span={20} pull={0} style={styles.control}>
-            <div style={styles.main}>
-              <div className="top-menu">
-                <Badge count={5} className="notification-box">
-                  <Icon type="notification" className="notification"/>
-                </Badge>
-              </div>
-              <div className="main-content">
-                {this.props.children}
-              </div>
+            <div className="top-menu">
+              <Badge count={5} className="notification-box">
+                <Icon type="notification" className="notification"/>
+              </Badge>
+            </div>
+            <div className="main-content">
+              {this.props.children}
             </div>
           </Col>
         </Row>
