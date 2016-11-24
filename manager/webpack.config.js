@@ -3,16 +3,19 @@
  */
 
 var path = require('path');
-//var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: [
-        'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://localhost:8080',
-        path.resolve(__dirname, './app/main.js'),
-    ],
+    entry: {
+        index: ['webpack/hot/dev-server',
+            'webpack-dev-server/client?http://localhost:8080',
+            path.resolve(__dirname, './app/main.js')],
+        vendor: ['react','react-dom','jquery','antd']
+    },
     output: {
         path: path.resolve(__dirname, './build'),
+        publicPath: '/',
         filename: 'bundle.js',
     },
     module: {
@@ -34,9 +37,12 @@ module.exports = {
     babel: {
         "plugins": [["import", [{"libraryName": "antd", "style": true}]]]
     },
-    /*plugins: [new HtmlWebpackPlugin({
-     title: 'My',
-     template:"build/template.html",
-     filename: 'index.html'
-     })]*/
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        /*new HtmlWebpackPlugin({
+            title: 'admin',
+            template: "build/template.html",
+            filename: 'index.html',
+        }),*/
+        ]
 };
