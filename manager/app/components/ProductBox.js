@@ -4,7 +4,7 @@
 
 import React from 'react';
 import cookie from 'react-cookie';
-import {ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'Recharts';
+import {ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 export default class ProductBox extends React.Component {
     constructor(props) {
         super(props);

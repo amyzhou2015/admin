@@ -43,7 +43,7 @@ module.exports = {
         //new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new HtmlWebpackPlugin({
             title: 'admin',
-            template: "build/template.html",
+            template: "./template.html",
             filename: 'index.html',
         }),
         ]
