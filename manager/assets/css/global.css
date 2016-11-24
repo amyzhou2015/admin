@@ -10,10 +10,64 @@
   background: #2db7f5;
   -webkit-border-radius: 1ex; }
 
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table; }
+.clearfix:after {
+  clear: both; }
+
+.display-block {
+  display: block; }
+
+.fl {
+  float: left; }
+
+.fr {
+  float: right; }
+
+.text-center {
+  text-align: center; }
+
+.text-bold {
+  font-weight: bold; }
+
+.text-small {
+  font-size: 12px; }
+
+.text-mid {
+  font-size: 16px; }
+
+.text-larger {
+  font-size: 20px; }
+
+.w100 {
+  width: 100%; }
+
+.h100 {
+  height: 100%; }
+
+.m20 {
+  margin: 20px; }
+
+.p20 {
+  padding: 20px; }
+
+.mt20 {
+  margin-top: 20px; }
+
+.mb20 {
+  margin-bottom: 20px; }
+
+.primary-color {
+  color: #2db7f5; }
+
 #content {
   width: 100%;
   height: 100%;
   overflow: hidden; }
+
+.center-block {
+  margin: 0 auto; }
 
 .login-box {
   width: 100%;
@@ -56,7 +110,20 @@
     padding: 20px 20px 70px 20px;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: auto; }
+    overflow-y: auto;
+    font-size: 14px; }
+    .main .main-content:before, .main .main-content:after {
+      content: "";
+      display: table; }
+    .main .main-content:after {
+      clear: both; }
+    .main .main-content div {
+      display: block; }
+      .main .main-content div:before, .main .main-content div:after {
+        content: "";
+        display: table; }
+      .main .main-content div:after {
+        clear: both; }
   .main .left-menu .top-menu {
     width: 100%;
     height: 70px;
