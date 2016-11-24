@@ -5,13 +5,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
         index: ['webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:8080',
             path.resolve(__dirname, './app/main.js')],
-        vendor: ['react','react-dom','jquery','antd']
+        //vendor: ['react','react-dom','jquery','antd']
     },
     output: {
         path: path.resolve(__dirname, './build'),
@@ -38,11 +39,12 @@ module.exports = {
         "plugins": [["import", [{"libraryName": "antd", "style": true}]]]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
-        /*new HtmlWebpackPlugin({
+        new CopyWebpackPlugin([ { from: './assets', to: 'static' } ]),
+        //new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        new HtmlWebpackPlugin({
             title: 'admin',
             template: "build/template.html",
             filename: 'index.html',
-        }),*/
+        }),
         ]
 };
