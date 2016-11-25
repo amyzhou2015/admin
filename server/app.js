@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
-
+var menu = require('./routes/menu');
+var login = require('./routes/account/login');
+var verifyLogin = require('./routes/account/verifyLogin');
 
 var app = express();
 
@@ -23,17 +24,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.all('*', function(req, res, next) {  
-    res.header("Access-Control-Allow-Origin", "*");  
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");  
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
-    res.header("X-Powered-By",' 3.2.1')  
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header('Access-Control-Allow-Credentials', true);
+    //res.header("X-Powered-By",' 3.2.1')
     //res.header("Content-Type", "application/json;charset=utf-8");
-    next();  
-});  
+    next();
+});
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/menu', menu);
+app.use('/login', login);
+app.use('/verifyLogin', verifyLogin);
 
 /*// error handler
 app.use(function(err, req, res, next) {

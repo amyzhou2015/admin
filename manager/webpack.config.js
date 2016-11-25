@@ -8,6 +8,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    },
     entry: {
         index: ['webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:8080',
@@ -26,7 +31,8 @@ module.exports = {
             {test: /\.css$/, loader: 'style!css'},
             {test: /\.less$/, loader: 'style!css!less'},
             {test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader"},
-            {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015', 'react']},}
+            {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015', 'react']},},
+            { test: /\.json$/, loader: 'json-loader' }
         ],
     },
     devServer: {
@@ -46,5 +52,5 @@ module.exports = {
             template: "./template.html",
             filename: 'index.html',
         }),
-        ]
+        ],
 };

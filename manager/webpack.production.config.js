@@ -11,6 +11,11 @@ var isProduction = function () {
 };
 
 module.exports = {
+    node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    },
     entry: {
         app: [path.resolve(__dirname, './app/main.js')],
         //vendor: ['react','react-dom','jquery','antd']
@@ -27,7 +32,8 @@ module.exports = {
             {test: /\.css$/, loader: 'style!css'},
             {test: /\.less$/, loader: 'style!css!less'},
             {test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader"},
-            {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015', 'react']},}
+            {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015', 'react']},},
+            { test: /\.json$/, loader: 'json-loader' }
         ],
     },
     devServer: {

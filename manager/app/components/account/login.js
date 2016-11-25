@@ -2,59 +2,103 @@
  * Created by Riven on 2016/11/21.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import cookie from 'react-cookie';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {Form, Icon, Input, Button, Checkbox, message, Spin} from 'antd';
+import request from 'request';
+import Seetings from '../../seetings';
+const ajaxHost = Seetings.seetings.ajaxHost;
 const FormItem = Form.Item;
 
 const login = Form.create()(React.createClass({
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        var now = new Date();
-        var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + 8, now.getUTCMinutes() + 15, now.getUTCSeconds());
-        cookie.save('userName', values.userName, {path: "/", expires: now_utc});
-        window.location.reload();
-        console.log('Received values of form: ', values);
-      }
-    });
-  },
-  render() {
-    const { getFieldDecorator } = this.props.form;
-    const mt = (document.documentElement.clientHeight-250)/2.4;
-    return (
-      <div className="login-box">
-        <Form onSubmit={this.handleSubmit} style={{marginTop:mt}} className="login-form">
-          <FormItem>
-            {getFieldDecorator('userName', {
-              rules: [{required: true, message: 'Please input your username!'}],
-            })(
-              <Input addonBefore={<Icon type="user" />} placeholder="Username"/>
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{required: true, message: 'Please input your Password!'}],
-            })(
-              <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password"/>
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox style={{color:"#ffffff"}}>记住密码</Checkbox>
-            )}
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              登陆
-            </Button>
-          </FormItem>
-        </Form>
-      </div>
-    );
-  },
+    getInitialState(){
+        return {logining: false};
+    },
+    handleSubmit(e) {
+        var that=this;
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                var now = new Date();
+                var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + 8, now.getUTCMinutes() + 15, now.getUTCSeconds());
+                //cookie.save('userName', values.userName, {path: "/", expires: now_utc});
+                //window.location.reload();
+
+                this.setState({
+                    logining:true
+                })
+
+                request({
+                    url: ajaxHost + "login",
+                    method: "POST",
+                    form: {userName: values.userName, password: values.password}
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        var data = JSON.parse(body);
+                        if (data && data.success) {
+                            console.log(data);
+                            message.success("登陆成功");
+                            cookie.save('userName',data.data.name, {path: "/", expires: now_utc});
+                            cookie.save('token',data.data.token, {path: "/", expires: now_utc});
+                            cookie.save('loginName',data.data.login_name, {path: "/", expires: now_utc});
+                            console.log(cookie.load('userName'))
+                            console.log(cookie.load('token'))
+                            console.log(cookie.load('loginName'))
+                            window.location.reload();
+                        } else if (data && data.msg) {
+                            message.warning(data.msg);
+                        } else {
+                            message.error("服务异常");
+                        }
+                    }else{
+                        message.error("服务异常");
+                    }
+                    that.setState({
+                        logining:false
+                    })
+                })
+
+                //console.log('Received values of form: ', values);
+            }
+        });
+    },
+    render() {
+        const {getFieldDecorator} = this.props.form;
+        const mt = (document.documentElement.clientHeight - 250) / 3;
+        return (
+            <div className="login-box">
+                <Spin tip="登录中..." spinning={this.state.logining}>
+
+                    <Form onSubmit={this.handleSubmit} style={{marginTop: mt}} className="login-form">
+                        <FormItem>
+                            {getFieldDecorator('userName', {
+                                rules: [{required: true, message: '请输入您的用户名!'}],
+                            })(
+                                <Input addonBefore={<Icon type="user"/>} placeholder="userName"/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('password', {
+                                rules: [{required: true, message: '请输入您的密码!'}],
+                            })(
+                                <Input addonBefore={<Icon type="lock"/>} type="password" placeholder="Password"/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: true,
+                            })(
+                                <Checkbox style={{color: "#ffffff"}}>记住密码</Checkbox>
+                            )}
+                            <Button type="primary" htmlType="submit" className="login-form-button">
+                                登陆
+                            </Button>
+                        </FormItem>
+                    </Form>
+                </Spin>
+            </div>
+        );
+    },
 }));
 
 module.exports = login;
