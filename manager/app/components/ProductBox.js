@@ -4,7 +4,6 @@
 
 import React from 'react';
 import cookie from 'react-cookie';
-import {ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 export default class ProductBox extends React.Component {
     constructor(props) {
         super(props);
@@ -28,20 +27,6 @@ export default class ProductBox extends React.Component {
         return (
             <div>
                 <div>欢迎您,<span className='text-larger text-bold primary-color'>&nbsp;{this.state.userName}&nbsp;!</span></div>
-                <div className="w100" style={{height:200,marginTop:50}}>
-                    <ResponsiveContainer>
-                        <BarChart width={600} height={300} data={data}
-                                  margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                            <XAxis dataKey="name"/>
-                            <YAxis/>
-                            <CartesianGrid strokeDasharray="3 3"/>
-                            <Tooltip/>
-                            <Legend />
-                            <Bar dataKey="pv" fill="#8884d8" />
-                            <Bar dataKey="uv" fill="#82ca9d" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
             </div>
         );
     }

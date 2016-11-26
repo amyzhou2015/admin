@@ -4,7 +4,7 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import {Form, Icon, Input, Button, Checkbox, message, Spin} from 'antd';
-import request from 'request';
+import ajax from 'axios';
 import Seetings from '../../seetings';
 const ajaxHost = Seetings.seetings.ajaxHost;
 const FormItem = Form.Item;
@@ -27,15 +27,19 @@ const login = Form.create()(React.createClass({
                     logining:true
                 })
 
-                request({
-                    url: ajaxHost + "login",
-                    method: "POST",
-                    form: {userName: values.userName, password: values.password}
-                }, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var data = JSON.parse(body);
+                ajax({
+                    method:"post",
+                    url:ajaxHost + "login",
+                    data:{
+                        userName: values.userName,
+                        password: values.password
+                    },
+                    timeout:5000,
+                })
+                    .then(function (response) {
+                        console.log(response)
+                        var data=response.data;
                         if (data && data.success) {
-                            console.log(data);
                             message.success("登陆成功");
                             cookie.save('userName',data.data.name, {path: "/", expires: now_utc});
                             cookie.save('token',data.data.token, {path: "/", expires: now_utc});
@@ -49,13 +53,19 @@ const login = Form.create()(React.createClass({
                         } else {
                             message.error("服务异常");
                         }
-                    }else{
-                        message.error("服务异常");
-                    }
-                    that.setState({
-                        logining:false
+
+                        that.setState({
+                            logining:false
+                        })
                     })
-                })
+                    .catch(function (error) {
+                        const errors = error.toString();
+                        let errorMsg = errors.indexOf('timeout')==-1? "服务异常":"请求超时";
+                        message.error(errorMsg);
+                        that.setState({
+                            logining:false
+                        })
+                    })
 
                 //console.log('Received values of form: ', values);
             }

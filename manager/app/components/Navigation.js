@@ -1,9 +1,9 @@
 import React from 'react';
 import cookie from 'react-cookie';
-import request from 'request';
+import ajax from 'axios';
 import {Menu, Icon, Row, Col, Popconfirm, Dropdown, Badge} from 'antd';
-import { verifyLogin,logout } from '../components/account/authentication.js';
-import {Link} from 'react-router';
+import {verifyLogin, logout} from '../components/account/authentication.js';
+import Link from 'react-router/lib/Link';
 import Seetings from '../seetings';
 const ajaxHost = Seetings.seetings.ajaxHost;
 const SubMenu = Menu.SubMenu;
@@ -14,6 +14,7 @@ export default class Navigation extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props)
         let defaultOpenKeys = [], selectedKeys = '', _length;
         let state = this.props.children.props.location.state;
         if (state && state.idList) {
@@ -32,8 +33,8 @@ export default class Navigation extends React.Component {
             defaultOpenKeys: defaultOpenKeys,
             menuData: [],
             userName: cookie.load('userName'),
-            visible:false,
-            msg:""
+            visible: false,
+            msg: ""
         };
 
     }
@@ -48,36 +49,42 @@ export default class Navigation extends React.Component {
 
         const that = this;
 
-        request({
-            url: ajaxHost + "menu"
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var data = JSON.parse(body);
-                if (data && data.success) {
-                    menuData = data.data;
-                    let _index = 0;
-                    menuData.map((i, t) => {
-                        if (i.parent_id == 1) {
-                            _menu[_index] = i;
-                            _menu[_index].trees = 1;
-                            delete menuData[t];
-                            _index++;
-                        }
-                    });
-
-                    for (let i = 0; i < _index; i++) {
-                        that._loadMenu(_menu[i].id, i);
-                    }
-
-                    sessionStorage.menu = JSON.stringify(_menu);
-                    that.setState({
-                        menuData: _menu
-                    })
-                }
-            } else {
-                console.error(error);
-            }
+        ajax({
+            method: "get",
+            url: ajaxHost + "menu",
+            timeout: 5000
         })
+            .then(function (response) {
+                if (response.status == 200) {
+                    var data = response.data;
+                    if (data && data.success) {
+                        menuData = data.data;
+                        let _index = 0;
+                        menuData.map((i, t) => {
+                            if (i.parent_id == 1) {
+                                _menu[_index] = i;
+                                _menu[_index].trees = 1;
+                                delete menuData[t];
+                                _index++;
+                            }
+                        });
+
+                        for (let i = 0; i < _index; i++) {
+                            that._loadMenu(_menu[i].id, i);
+                        }
+
+                        sessionStorage.menu = JSON.stringify(_menu);
+                        that.setState({
+                            menuData: _menu
+                        })
+                    }
+                } else {
+                    console.error(error);
+                }
+            })
+            .catch(function (error) {
+                console.log(errors);
+            })
     }
 
     _loadMenu(pid, tIndex) {

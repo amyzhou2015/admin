@@ -3,8 +3,7 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Input, Tooltip ,Button,Spin,Alert,notification,Icon} from 'antd';
+import { Form, Input ,Button,Spin,notification,Icon} from 'antd';
 const FormItem = Form.Item;
 
 const modifyPwd = Form.create()(React.createClass({

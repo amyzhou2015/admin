@@ -3,9 +3,9 @@
  */
 
 import cookie from 'react-cookie';
-import request from 'request-promise';
+import ajax from 'axios';
 import Seetings from '../../seetings';
-import {Menu, Icon, Row, Col, Popconfirm, Dropdown, Badge,Modal} from 'antd';
+import {Modal} from 'antd';
 const ajaxHost = Seetings.seetings.ajaxHost;
 const userName = cookie.load('userName');
 const loginName = cookie.load('loginName');
@@ -37,28 +37,33 @@ export const logout = () => {
 }
 
 export const verifyLogin = (z) => {
-    request({
+    ajax({
         url: ajaxHost + "verifyLogin",
         method: "POST",
-        form: {token: cookie.load('token'), loginName: cookie.load('loginName')},
+        data: {token: cookie.load('token'), loginName: cookie.load('loginName')},
     })
         .then(function (response) {
-            var data = JSON.parse(response);
-            if (!data || !data.success || data.expired) {
+            if (response.status == 200) {
+                var data = response.data;
+                if (!data || !data.success || data.expired) {
+                    Modal.warning({
+                        title: "警告",
+                        content: "登录已过期,请重新登录！",
+                        onOk: logout,
+                        okText: "确定"
+                    })
+                }
+            } else {
                 Modal.warning({
-                    title:"警告",
-                    content:"账号已在其他地方登录，请重新登录！",
-                    onOk:logout,
-                    okText:"确定"
+                    title: "警告",
+                    content: "账号已在其他地方登录，请重新登录！",
+                    onOk: logout,
+                    okText: "确定"
                 })
             }
         })
-        .catch(function (err) {
-            Modal.warning({
-                title:"警告",
-                content:"账号已在其他地方登录，请重新登录！",
-                onOk:logout,
-                okText:"确定"
-            })
-        });
+        .catch(function (error) {
+            logout();
+            console.log(error);
+        })
 }

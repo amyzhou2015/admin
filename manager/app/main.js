@@ -4,7 +4,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import Router from 'react-router/lib/Router';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import browserHistory from 'react-router/lib/browserHistory';
 import Navigation from './components/Navigation';
 import ProductBox from './components/ProductBox';
 import NotFound from './components/404';
