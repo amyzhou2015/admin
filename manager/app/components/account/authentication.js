@@ -52,6 +52,15 @@ export const verifyLogin = (z) => {
                         onOk: logout,
                         okText: "确定"
                     })
+                }else{
+                    if (userName && loginName && token) {
+                        var now = new Date();
+                        var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + 8, now.getUTCMinutes() + 15, now.getUTCSeconds());
+
+                        cookie.save('userName',userName, {path: "/", expires: now_utc});
+                        cookie.save('token',token, {path: "/", expires: now_utc});
+                        cookie.save('loginName',loginName, {path: "/", expires: now_utc});
+                    }
                 }
             } else {
                 Modal.warning({
