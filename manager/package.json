@@ -24,6 +24,8 @@
     "react-ajax": "^0.1.1",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.3.2",
+    "react-progress": "0.0.12",
+    "react-progress-bar-plus": "^1.2.0",
     "react-router": "^3.0.0",
     "recharts": "^0.19.0",
     "request": "^2.79.0",

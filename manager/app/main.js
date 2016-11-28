@@ -15,7 +15,6 @@ import modifyPwd from './components/sys/user/modifyPwd';
 import login from './components/account/login';
 import { isLoggedIn,otherEnterHookHere } from './components/account/authentication.js';
 
-
 ReactDOM.render(<Router history={browserHistory}>
     <Route path="/login" component={login} onEnter={otherEnterHookHere} />
     <Route path="/" component={Navigation} onEnter={isLoggedIn}>

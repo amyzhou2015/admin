@@ -56,7 +56,7 @@ export const verifyLogin = (z) => {
             } else {
                 Modal.warning({
                     title: "警告",
-                    content: "账号已在其他地方登录，请重新登录！",
+                    content: "登录已过期，请重新登录！",
                     onOk: logout,
                     okText: "确定"
                 })

@@ -5,20 +5,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var noduleModulesPath = path.resolve(__dirname,'./nodule_modules');
 var isProduction = function () {
     return process.env.NODE_ENV === 'production';
 };
 
 module.exports = {
-    node: {
-        fs: 'empty',
-        net: 'empty',
-        tls: 'empty'
-    },
     entry: {
         app: [path.resolve(__dirname, './app/main.js')],
-        vendor: ['react','react-dom','antd']
+        vendor: ['react','react-router','react-dom','antd']
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -33,7 +27,6 @@ module.exports = {
             {test: /\.less$/, loader: 'style!css!less'},
             {test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader"},
             {test: /.jsx?$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015', 'react']},},
-            { test: /\.json$/, loader: 'json-loader' }
         ],
     },
     devServer: {

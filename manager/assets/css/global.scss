@@ -40,6 +40,11 @@
   }
 }
 
+$primary-color: red;
+
+
+
+
 .display-block {
   display: block;
 }
@@ -98,6 +103,17 @@
 .primary-color{
   color: #2db7f5;
 }
+
+.progress-bar{
+  .react-progress-bar-percent{
+    background: $primary-color;
+    transition: all 1.2s ease-in;
+  }
+  .react-progress-bar-spinner-icon{
+    border-top-color: $primary-color;
+    border-left-color: $primary-color;
+  }
+}
 #content {
   width: 100%;
   height: 100%;
@@ -122,7 +138,6 @@
     border-radius: 15px;
     color: #000000;
     .login-form-button {
-      margin-left: 20px;
       width: 200px;
     }
   }
@@ -175,23 +190,25 @@
         float: left;
         cursor: pointer;
         margin-left: 10px;
+        @include clearfix;
         .user {
           font-size: 34px;
+          float: left;
           line-height: 70px;
         }
         span.name {
-          line-height: 70px;
+          float: left;
           font-size: 20px;
           margin-left: 10px;
+          line-height: 70px;
         }
       }
       .logout {
         float: right;
-        line-height: 70px;
-        font-size: 28px;
+        font-size: 34px;
         cursor: pointer;
         transition: all 0.5s ease-out;
-        margin-right: 10px;
+        margin: 18px 10px 0 0;
         &:hover {
           transform: rotate(360deg);
         }

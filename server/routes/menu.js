@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var database = require('../dao/database')
-var connection = database.getConnection();
+var mysql = require('../dao/database')
 
 
 var sql = "select id,parent_id,name,href from sys_menu Where is_show=1";
 var json={};
-connection.query(sql, function(err, rows, fields) {
+
+mysql.query(sql, function(err, rows, fields) {
 	if (err) {
 		json.success=false;
 	}else{

@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var database = require('../../dao/database')
+var mysql = require('../../dao/database')
 var crypto = require('crypto');
 
 function getToken(userName, password) {
@@ -28,10 +28,9 @@ router.post('/', function (req, res, next) {
     var json = {"success": false};
     var params = req.body;
     if (params.userName && params.password) {
-        var connection = database.getConnection();
         params.password = getPassword(params.password);
         var sql = "SELECT * FROM sys_user WHERE login_name='" + params.userName + "' AND password='" + params.password + "'";
-        connection.query(sql, function (err, rows, fields) {
+        mysql.query(sql, function (err, rows, fields) {
             if (err) {
                 console.log(err);
                 json.msg = "服务异常，请稍后再试！";
@@ -42,7 +41,7 @@ router.post('/', function (req, res, next) {
                     var token = getToken(params.userName, params.password);
                     var data=rows[0];
                     var insertSql = "UPDATE sys_user SET token='" + token + "' WHERE login_name='" + params.userName +"'";
-                    connection.query(insertSql, function (err, rows, fields) {
+                    mysql.query(insertSql, function (err, rows, fields) {
                         if (err) {
                             json.msg = '服务异常，登陆失败！';
                         } else {

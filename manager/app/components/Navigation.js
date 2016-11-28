@@ -34,20 +34,20 @@ export default class Navigation extends React.Component {
             menuData: [],
             userName: cookie.load('userName'),
             visible: false,
-            msg: ""
+            msg: "",
+            progress:-1
         };
 
     }
 
     componentDidMount() {
+        const that = this;
         if (sessionStorage.menu && JSON.parse(sessionStorage.menu)) {
             this.setState({
-                menuData: JSON.parse(sessionStorage.menu)
+                menuData: JSON.parse(sessionStorage.menu),
             })
             return;
         }
-
-        const that = this;
 
         ajax({
             method: "get",
@@ -75,7 +75,7 @@ export default class Navigation extends React.Component {
 
                         sessionStorage.menu = JSON.stringify(_menu);
                         that.setState({
-                            menuData: _menu
+                            menuData: _menu,
                         })
                     }
                 } else {

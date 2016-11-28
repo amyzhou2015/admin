@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var database = require('../../dao/database')
+var mysql = require('../../dao/database')
 var crypto = require('crypto');
 
 router.post('/', function (req, res, next) {
@@ -12,9 +12,8 @@ router.post('/', function (req, res, next) {
     var params = req.body;
     console.log(params);
     if (params.loginName && params.token) {
-        var connection = database.getConnection();
         var sql = "SELECT * FROM sys_user WHERE login_name='" + params.loginName + "' AND token='" + params.token + "'";
-        connection.query(sql, function (err, rows, fields) {
+        mysql.query(sql, function (err, rows, fields) {
             if (err) {
                 console.log(err);
                 json.msg = "服务异常，请稍后再试！";

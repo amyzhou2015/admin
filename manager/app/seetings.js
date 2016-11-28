@@ -4,6 +4,6 @@
 
 module.exports = {
     seetings: {
-        ajaxHost: 'http://192.168.0.103:3000/',
+        ajaxHost: 'http://172.90.0.253:3000/',
     }
 }
