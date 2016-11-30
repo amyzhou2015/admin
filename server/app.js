@@ -6,9 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var upload = require('./routes/upload');
 var menu = require('./routes/menu');
 var login = require('./routes/account/login');
 var verifyLogin = require('./routes/account/verifyLogin');
+var banner = require('./routes/cms/banner');
 
 var app = express();
 
@@ -22,7 +24,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static',express.static(path.join(__dirname, 'public')));
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
@@ -35,9 +37,11 @@ app.all('*', function(req, res, next) {
 });
 
 app.use('/', index);
+app.use('/upload', upload);
 app.use('/menu', menu);
 app.use('/login', login);
 app.use('/verifyLogin', verifyLogin);
+app.use('/banner', banner);
 
 /*// error handler
 app.use(function(err, req, res, next) {

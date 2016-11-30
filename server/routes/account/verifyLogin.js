@@ -10,7 +10,6 @@ var crypto = require('crypto');
 router.post('/', function (req, res, next) {
     var json = {"success": false};
     var params = req.body;
-    console.log(params);
     if (params.loginName && params.token) {
         var sql = "SELECT * FROM sys_user WHERE login_name='" + params.loginName + "' AND token='" + params.token + "'";
         mysql.query(sql, function (err, rows, fields) {
@@ -26,7 +25,6 @@ router.post('/', function (req, res, next) {
                     json.expired=false;
                 }
             }
-            console.log(json);
             res.json(json);
         })
     } else {

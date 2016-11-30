@@ -14,7 +14,6 @@ export default class Navigation extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
         let defaultOpenKeys = [], selectedKeys = '', _length;
         let state = this.props.children.props.location.state;
         if (state && state.idList) {
@@ -35,7 +34,7 @@ export default class Navigation extends React.Component {
             userName: cookie.load('userName'),
             visible: false,
             msg: "",
-            progress:-1
+            progress: -1
         };
 
     }
@@ -58,6 +57,7 @@ export default class Navigation extends React.Component {
                 if (response.status == 200) {
                     var data = response.data;
                     if (data && data.success) {
+                        _menu = [], menuData = [];
                         menuData = data.data;
                         let _index = 0;
                         menuData.map((i, t) => {
@@ -158,30 +158,32 @@ export default class Navigation extends React.Component {
         let defaultOpenKeys = this.state.defaultOpenKeys;
         let menu = this.state.menuData.map((i) => {
             return (
-                <SubMenu key={i.id} title={<span><Icon type="appstore-o"/><span>{i.name}</span></span>}>
+                <SubMenu key={'nav' + i.id} title={<span><Icon type="appstore-o"/><span>{i.name}</span></span>}>
                     {
                         i.subMenu &&
                         i.subMenu.map((x) => {
                             if (x.subMenu && x.subMenu.length > 0) {
-                                return <SubMenu key={x.id}
+                                return <SubMenu key={'nav' + x.id}
                                                 title={<span><Icon type="bars"/><span>{x.name}</span></span>}>
                                     {
                                         x.subMenu.map((j) => {
                                             if (!j.href || j.href == '') {
-                                                return <Menu.Item key={j.id} disabled={true}>{<span><Icon
+                                                return <Menu.Item key={'nav' + j.id} disabled={true}>{<span><Icon
                                                     type="pushpin-o"/><span>{j.name}</span></span>}</Menu.Item>
                                             } else {
                                                 if (j.href.indexOf('http') != -1) {
-                                                    return <Menu.Item key={j.id}><a href={j.href} target="_blank">{
+                                                    return <Menu.Item key={'nav' + j.id}><a href={j.href}
+                                                                                            target="_blank">{
                                                         <span><Icon type="pushpin-o"/><span>{j.name}</span></span>}</a></Menu.Item>
                                                 } else {
-                                                    return <Menu.Item key={j.id}><Link
+                                                    return <Menu.Item key={'nav' + j.id}><Link
                                                         to={{
                                                             pathname: j.href,
-                                                            state: {idList: i.id + ',' + x.id + ',' + j.id}
+                                                            state: {idList: 'nav' + i.id + ',' + 'nav' + x.id + ',' + 'nav' + j.id}
                                                         }}
-                                                        data-select={i.id + ',' + x.id + ',' + j.id}>{<span><Icon
-                                                        type="pushpin-o"/><span>{j.name}</span></span>}</Link></Menu.Item>
+                                                        data-select={'nav' + i.id + ',' + 'nav' + x.id + ',' + 'nav' + j.id}>{
+                                                        <span><Icon
+                                                            type="pushpin-o"/><span>{j.name}</span></span>}</Link></Menu.Item>
                                                 }
                                             }
                                         })
@@ -189,12 +191,12 @@ export default class Navigation extends React.Component {
                                 </SubMenu>
                             } else {
                                 if (!x.href || x.href == '') {
-                                    return <Menu.Item key={x.id} disabled={true}>{x.name}</Menu.Item>
+                                    return <Menu.Item key={'nav' + x.id} disabled={true}>{x.name}</Menu.Item>
                                 } else {
-                                    return <Menu.Item key={x.id} disabled={false}><Link
+                                    return <Menu.Item key={'nav' + x.id} disabled={false}><Link
                                         to={{
                                             pathname: x.href,
-                                            state: {idList: i.id + ',' + x.id}
+                                            state: {idList: 'nav' + i.id + ',' + 'nav' + x.id}
                                         }}>{x.name}</Link></Menu.Item>
                                 }
 
@@ -224,7 +226,7 @@ export default class Navigation extends React.Component {
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item key="30">
-                    <Link to={{pathname: "/sys/user/modifyPwd", state: {idList: "27,28,30"}}}>修改密码</Link>
+                    <Link to={{pathname: "/sys/user/modifyPwd", state: {idList: "nav27,nav28,nav30"}}}>修改密码</Link>
                 </Menu.Item>
             </Menu>
         );

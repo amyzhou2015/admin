@@ -42,9 +42,6 @@
 
 $primary-color: red;
 
-
-
-
 .display-block {
   display: block;
 }
@@ -76,44 +73,118 @@ $primary-color: red;
 .text-larger {
   font-size: 20px;
 }
-.w100{
+
+.w100 {
   width: 100%;
 }
 
-.h100{
+.h100 {
   height: 100%;
 }
 
-.m20{
+.m20 {
   margin: 20px;
 }
 
-.p20{
+.p20 {
   padding: 20px;
 }
 
-.mt20{
+.mt20 {
   margin-top: 20px;
 }
 
-.mb20{
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb20 {
   margin-bottom: 20px;
 }
 
-.primary-color{
+.mr10 {
+  margin-right: 10px;
+}
+
+.primary-color {
   color: #2db7f5;
 }
 
-.progress-bar{
-  .react-progress-bar-percent{
+.progress-bar {
+  .react-progress-bar-percent {
     background: $primary-color;
     transition: all 1.2s ease-in;
   }
-  .react-progress-bar-spinner-icon{
+  .react-progress-bar-spinner-icon {
     border-top-color: $primary-color;
     border-left-color: $primary-color;
   }
 }
+
+.avatar-uploader,
+.avatar-uploader-trigger,
+.avatar {
+  width: 150px;
+  height: 150px;
+}
+
+.avatar-uploader {
+  display: block;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.avatar-uploader-trigger {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 28px;
+  color: #999;
+}
+
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-input-wrapper,
+.editable-cell-text-wrapper {
+  padding-right: 24px;
+}
+
+.editable-cell-text-wrapper {
+  padding: 5px 24px 5px 5px;
+}
+
+.editable-cell-icon,
+.editable-cell-icon-check {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  cursor: pointer;
+}
+
+.editable-cell-icon {
+  line-height: 18px;
+  display: none;
+}
+
+.editable-cell-icon-check {
+  line-height: 28px;
+}
+
+.editable-cell:hover .editable-cell-icon {
+  display: inline-block;
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #2db7f5;
+}
+
+.editable-add-btn {
+  margin-bottom: 8px;
+}
+
 #content {
   width: 100%;
   height: 100%;
@@ -168,7 +239,7 @@ $primary-color: red;
   }
 
   .main-content {
-    padding: 20px 20px 70px 20px;
+    padding: 20px 20px 100px 20px;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
