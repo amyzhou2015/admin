@@ -12,7 +12,7 @@ var isProduction = function () {
 module.exports = {
     entry: {
         app: [path.resolve(__dirname, './app/main.js')],
-        vendor: ['react','react-router','react-dom','antd']
+        //vendor: ['react','react-router','react-dom','antd']
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -50,7 +50,7 @@ module.exports = {
                 warnings: false
             },
         }),
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        //new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new HtmlWebpackPlugin({
          title: 'admin',
          template: "./template.html",

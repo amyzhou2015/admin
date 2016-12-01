@@ -17,6 +17,7 @@ import pcBanner from './components/contentCenter/banner/pcBanner';
 import login from './components/account/login';
 import editMenu from './components/sys/menu/edit';
 import { isLoggedIn,otherEnterHookHere } from './components/account/authentication.js';
+import '../assets/css/global.scss';
 
 
 ReactDOM.render(<Router history={browserHistory}>

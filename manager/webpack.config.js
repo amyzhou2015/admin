@@ -12,7 +12,7 @@ module.exports = {
         index: ['webpack/hot/dev-server',
             'webpack-dev-server/client?http://localhost:8080',
             path.resolve(__dirname, './app/main.js')],
-        vendor: ['react','react-dom','react-router','antd']
+        //vendor: ['react','react-dom','react-router','antd']
     },
     output: {
         path: path.resolve(__dirname, './build'),
@@ -40,7 +40,7 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([ { from: './assets', to: 'static' } ]),
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+        //new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
         new HtmlWebpackPlugin({
             title: 'admin',
             template: "./template.html",
