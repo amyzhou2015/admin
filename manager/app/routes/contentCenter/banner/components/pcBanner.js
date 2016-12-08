@@ -5,7 +5,7 @@
 import React from 'react';
 import {Table, Button, Modal, Icon, Input, Upload, message, Spin, Popconfirm} from 'antd';
 import ajax from 'axios';
-import Seetings from '../../../seetings';
+import Seetings from '../../../../seetings';
 const ajaxHost = Seetings.seetings.ajaxHost;
 
 class EditableCell extends React.Component {
@@ -467,7 +467,7 @@ export default class pcBanner extends React.Component {
 
         const uploadProps = {
             name: 'file',
-            multiple: true,
+            multiple: false,
             showUploadList: false,
             action: ajaxHost+'upload',
             onChange: this.imgChange.bind(this),
@@ -475,7 +475,7 @@ export default class pcBanner extends React.Component {
 
         const addUploadProps = {
             name: 'file',
-            multiple: true,
+            multiple: false,
             showUploadList: false,
             action: ajaxHost+'upload',
             onChange: this.addImg.bind(this),

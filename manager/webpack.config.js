@@ -17,7 +17,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './build'),
         publicPath: '/',
-        filename: 'bundle.js',
+        filename: 'app.js',
+        chunkFilename: '[name].[chunkhash:5].chunk.js',
     },
     module: {
         loaders: [

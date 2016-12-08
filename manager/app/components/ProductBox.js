@@ -4,7 +4,7 @@
 
 import React from 'react';
 import cookie from 'react-cookie';
-export default class ProductBox extends React.Component {
+class ProductBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,3 +20,5 @@ export default class ProductBox extends React.Component {
         );
     }
 }
+
+module.exports = ProductBox;

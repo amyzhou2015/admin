@@ -14,6 +14,7 @@ export default class Navigation extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props)
         let defaultOpenKeys = [], selectedKeys = '', _length;
         let state = this.props.children.props.location.state;
         if (state && state.idList) {

@@ -20,7 +20,7 @@ export const isLoggedIn = (nextState, replace) => {
     }
 }
 
-export const otherEnterHookHere = (nextState, replace) => {
+export const haveLogined = (nextState, replace) => {
     const replaceRoute = nextState.location.state && nextState.location.state.lastRoute ? nextState.location.state.lastRoute : "/";
     if (userName && loginName && token) {
         replace({

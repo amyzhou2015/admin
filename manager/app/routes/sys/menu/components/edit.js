@@ -5,7 +5,7 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import ajax from 'axios';
-import seetings from '../../../seetings';
+import seetings from '../../../../seetings';
 import {Table, Icon, Button, Popconfirm, Spin, Input, message, Modal} from 'antd';
 const ajaxHost = seetings.seetings.ajaxHost;
 let _menu = [],

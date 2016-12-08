@@ -3,33 +3,51 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Router from 'react-router/lib/Router';
-import Route from 'react-router/lib/Route';
-import IndexRoute from 'react-router/lib/IndexRoute';
-import browserHistory from 'react-router/lib/browserHistory';
-import Navigation from './components/Navigation';
-import ProductBox from './components/ProductBox';
-import NotFound from './components/404';
-import modifyPwd from './components/sys/user/modifyPwd';
-import upload from './components/sys/user/upload';
-import pcBanner from './components/contentCenter/banner/pcBanner';
-import login from './components/account/login';
-import editMenu from './components/sys/menu/edit';
-import { isLoggedIn,otherEnterHookHere } from './components/account/authentication.js';
+import {render} from 'react-dom'
+import Router from 'react-router/lib/Router'
+import browserHistory from 'react-router/lib/browserHistory'
+import {isLoggedIn, haveLogined} from './components/account/authentication.js';
 import '../assets/css/global.scss';
 
+const loginRoute = {
+    path: '/login',
+    getComponents(location, callback) {
+        require.ensure([], function (require) {
+            callback(null, require('./components/account/login'))
+        }, 'login')
+    },
+    onEnter: haveLogined
+}
 
-ReactDOM.render(<Router history={browserHistory}>
-    <Route path="/login" component={login} onEnter={otherEnterHookHere} />
-    <Route path="/" component={Navigation} onEnter={isLoggedIn}>
-      <IndexRoute component={ProductBox}/>
-      <Route path="sys/user/modifyPwd" component={modifyPwd}/>
-      <Route path="cms/category" component={upload}/>
-      <Route path="sys/editMenu" component={editMenu}/>
-      <Route path="cms/banner/PCbanner" component={pcBanner}/>
-      <Route path="*" component={NotFound}/>
-    </Route>
-  </Router>
-  , document.getElementById('content'));
+const rootRoute = {
+    path: '/',
+    getComponents(location, callback) {
+        require.ensure([], function (require) {
+            callback(null, require('./components/Navigation').default)
+        }, 'navigation')
+    },
+    getIndexRoute(location, callback) {
+        require.ensure([], function (require) {
+            callback(null, require('./routes/index'))
+        }, 'hello')
+    },
+
+    getChildRoutes(location, callback) {
+        require.ensure([], function (require) {
+            callback(null, [
+                require('./routes/sys/menu/index'),
+                require('./routes/sys/user/index'),
+                require('./routes/contentCenter/banner/index'),
+                require('./routes/notFound'),
+            ])
+        },'child')
+    },
+    onEnter: isLoggedIn
+}
+
+render(<Router
+        history={browserHistory}
+        routes={[loginRoute, rootRoute]}
+    />
+    , document.getElementById('content'))
 
